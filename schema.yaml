@@ -1,1 +1,14 @@
-key: value
+COLUMNS:
+  type: object
+  start_time: object
+  ambient_temperature: int64
+  battery_id: object
+  test_id: int64
+  uid: int64
+  filename: object
+  Capacity: float64
+  Re: float64
+  Rct: float64
+
+TARGET_COLUMN:
+  name: type
