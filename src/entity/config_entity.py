@@ -14,3 +14,11 @@ class DataValidationConfig:
     STATUS_FILE: str
     unzip_data_dir:Path
     all_schema:dict
+
+@dataclass
+class DataTransformationConfig:
+    root_dir:Path
+    data_path: Path
+    seq_length: int = 2
+    test_size: float = 0.25
+    random_state: int = 42
