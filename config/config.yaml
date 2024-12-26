@@ -1,0 +1,8 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: https://www11.online-convert.com/v2/dl/web7/download-file/d0568ae5-a790-4ebb-8bdb-ea2c5bf3d845/metadata.zip
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion
+
