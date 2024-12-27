@@ -2,18 +2,18 @@ artifacts_root: artifacts
 
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  source_URL: https://www11.online-convert.com/v2/dl/web7/download-file/d0568ae5-a790-4ebb-8bdb-ea2c5bf3d845/metadata.zip
+  source_URL: https://github.com/rahuls37/NASA-DATASET/archive/refs/heads/main.zip
   local_data_file: artifacts/data_ingestion/data.zip
   unzip_dir: artifacts/data_ingestion
 
 data_validation:
   root_dir: artifacts/data_validation
-  unzip_data_dir: artifacts/data_ingestion/metadata.csv
+  unzip_data_dir: artifacts/data_ingestion/NASA-DATASET-main/metadata.csv
   STATUS_FILE: artifacts/data_validation/status.txt
 
 data_transformation:
   root_dir: artifacts/data_transformation
-  data_path: artifacts/data_ingestion/metadata.csv
+  data_path: artifacts/data_ingestion/NASA-DATASET-main/metadata.csv
 
 model_trainer:
   root_dir: artifacts/model_trainer
