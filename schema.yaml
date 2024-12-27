@@ -11,4 +11,4 @@ COLUMNS:
   Rct: float64
 
 TARGET_COLUMN:
-  name: type
+  name: target
