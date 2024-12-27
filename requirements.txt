@@ -14,6 +14,10 @@ python-multipart
 tensorflow
 keras
 python-dotenv
+ensure
+python-box
+pyYAML
+tqdm
 
 
 ##-e .
