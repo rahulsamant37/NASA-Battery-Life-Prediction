@@ -1,6 +1,12 @@
 from src.constants import *
 from src.utils.common import read_yaml, create_directories
-from src.entity.config_entity import (DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig)
+from src.entity.config_entity import (DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig, ModelEvalConfig)
+import os
+from dotenv import load_dotenv
+load_dotenv()
+os.environ['MLFLOW_TRACKING_URI'] = os.environ.get('MLFLOW_TRACKING_URI', 'https://dagshub.com/rahulsamantcoc2/NASA-Battery-Life-Prediction.mlflow')
+os.environ['MLFLOW_TRACKING_USERNAME'] = os.environ.get('MLFLOW_TRACKING_USERNAME', 'rahulsamantcoc2')
+os.environ['MLFLOW_TRACKING_PASSWORD'] = os.environ.get('MLFLOW_TRACKING_PASSWORD', '33607bcb15d4e7a7cca29f0f443d16762cc15549')
 
 class ConfigurationManager:
     def __init__(self,
@@ -73,3 +79,19 @@ class ConfigurationManager:
             target_column=schema.name
         )
         return model_trainer_config
+    
+    def get_model_eval_config(self) -> ModelEvalConfig:
+        config=self.config.model_evaluation
+        params=self.params.model_trainer
+        schema=self.schema.TARGET_COLUMN
+        create_directories([config.root_dir])
+        model_eval_config=ModelEvalConfig(
+            root_dir=config.root_dir,
+            test_data_path=config.test_data_path,
+            model_path=config.model_path,
+            all_params=params,
+            metric_file_name=config.metric_file_name,
+            target_column=schema.name,
+            mlflow_uri=os.environ['MLFLOW_TRACKING_URI']
+        )
+        return model_eval_config
