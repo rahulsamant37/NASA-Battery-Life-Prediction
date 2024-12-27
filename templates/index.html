@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Capacity Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #4CAF50;
+            margin: 20px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .form-container input,
+        .form-container select,
+        .form-container button {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-container input:focus,
+        .form-container select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+        h3 {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        #prediction_result {
+            font-size: 1.2rem;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .section-header {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .form-container input,
+            .form-container button {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-battery-half"></i> Battery Capacity Prediction</h1>
+
+        <!-- Prediction Form -->
+        <div class="form-container">
+            <h2 class="section-header">Make Prediction</h2>
+            <form action="/predict" method="POST" id="predictionForm">
+                <input type="text" id="type" name="type" placeholder="Type (e.g., impedance)" required>
+                <input type="text" id="start_time" name="start_time" placeholder="Start Time (e.g., [2010 7 21 16 53 45.968])" required>
+                <input type="number" id="ambient_temperature" name="ambient_temperature" placeholder="Ambient Temperature" required>
+                <input type="text" id="battery_id" name="battery_id" placeholder="Battery ID (e.g., B0047)" required>
+                <input type="number" id="test_id" name="test_id" placeholder="Test ID" required>
+                <input type="number" id="uid" name="uid" placeholder="UID" required>
+                <input type="text" id="filename" name="filename" placeholder="Filename (e.g., 00002.csv)" required>
+                <input type="number" id="Re" name="Re" placeholder="Re" step="any" required>
+                <input type="number" id="Rct" name="Rct" placeholder="Rct" step="any" required>
+                <button type="submit">Predict <i class="fas fa-play-circle"></i></button>
+            </form>
+
+            <h3>Prediction Results</h3>
+            <p id="prediction_result"></p>
+        </div>
+
+        <!-- Retrain Model Form -->
+        <div class="form-container">
+            <h2 class="section-header">Retrain Model</h2>
+            <form action="/train" method="POST" id="trainForm">
+                <button type="submit">Retrain Model <i class="fas fa-sync-alt"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Battery Prediction System. All Rights Reserved.</p>
+    </div>
+
+    <script>
+        // Handle form submission and display prediction result without reloading the page
+        const predictionForm = document.querySelector('#predictionForm');
+        predictionForm.onsubmit = async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(predictionForm);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            const predictionResult = document.getElementById('prediction_result');
+
+            if (result.status === 'success') {
+                predictionResult.innerHTML = `Predicted Battery Capacity: ${result.predicted_capacity}`;
+            } else {
+                predictionResult.innerHTML = `Error: ${result.message}`;
+            }
+        };
+    </script>
+</body>
+</html>
