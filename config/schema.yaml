@@ -1,0 +1,13 @@
+COLUMNS:
+  Capacity: float64
+  Rct: float64
+  Re: float64
+  ambient_temperature: int64
+  battery_id: object
+  filename: object
+  start_time: object
+  test_id: int64
+  type: object
+  uid: int64
+TARGET_COLUMN:
+  name: target
