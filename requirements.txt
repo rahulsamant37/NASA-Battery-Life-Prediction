@@ -1,6 +1,6 @@
 python-dotenv
 pandas
-numpy
+numpy==1.26.4
 pymongo
 certifi
 pymongo[srv]
@@ -8,10 +8,12 @@ scikit-learn
 mlflow
 pyaml
 dagshub
-fastapi
+flask
 uvicorn
 python-multipart
-dotenv
+tensorflow
+keras
+python-dotenv
 
 
 ##-e .
