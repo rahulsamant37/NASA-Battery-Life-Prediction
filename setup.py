@@ -26,11 +26,11 @@ def get_requirements() -> List[str]:
     return requirement_list
 
 setup(
-    name="End-to-End-Flask-App",
+    name="Battery-Capacity-Prediction-System",
     version="0.0.1",
     author="Rahul Samant",
     author_email="rahulsamantcoc2@gmail.com",
-    description="A Flask application package",
+    description="This project implements a machine learning pipeline for predicting battery capacity using various input parameters. The system includes data processing, model training, and a Flask web interface for making real-time predictions.",
     packages=find_packages(),
     install_requires=get_requirements(),
     include_package_data=True,
